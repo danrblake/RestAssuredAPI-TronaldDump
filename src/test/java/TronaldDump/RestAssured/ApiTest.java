@@ -28,6 +28,7 @@ public class ApiTest {
         basePath = "/search/quote?query=";
         properties = new SeleniumDriverConfig("chrome");
         site = new TronaldSite(properties.getDriver());
+        port = 443;
     }
 
     @Test
@@ -38,12 +39,12 @@ public class ApiTest {
         site.getDriver().quit();
     }
 
-//    @Test
-//    public void testSearch(){
-//        for (String s : searchArray) {
-//            when().
-//            get(s).then().statusCode(200).
-//        }
-//
-//    }
+    @Test
+    public void testSearch(){
+        String[] quotes = new String[5];
+        for (int i = 0; i < searchArray.length; i++) {
+            quotes[i] = site.firstSearchResult(searchArray[i]);
+            given().header("accept","application/hal+json").when().get(searchArray[i]).then().statusCode(200).body("_embedded.quotes[0]", equalTo(quotes[i]));
+        }
+    }
 }

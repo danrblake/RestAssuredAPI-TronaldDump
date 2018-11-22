@@ -10,12 +10,27 @@ public class SearchPage {
     private WebDriver driver;
     private String searchURL;
     private By searchResults = By.tagName("blockquote");
+    private By firstResult = By.xpath("//*[@id=\"content\"]/section/blockquote/p");
+    private By firstResult1 = By.xpath("//*[@id=\"content\"]/section/blockquote[1]/p");
 
-    public SearchPage(WebDriver driver,String query){
-        this.searchURL = "https://www.tronalddump.io/search?query=" + query;
+    public SearchPage(WebDriver driver, String query){
         this.driver = driver;
+        this.searchURL = "https://www.tronalddump.io/search?query=" + query;
     }
 
+    public void goToSearchPage(){
+        driver.navigate().to(searchURL);
+    }
+    public String getFirstResult(){
+
+        String result;
+        try {
+            result = driver.findElement(firstResult).getText();
+        } catch (NullPointerException e) {
+            result = driver.findElement(firstResult1).getText();
+        }
+        return result;
+    }
     public String[] getResults(){
         List result = driver.findElements(searchResults);
         String[] quotes = new String[driver.findElements(searchResults).size()];

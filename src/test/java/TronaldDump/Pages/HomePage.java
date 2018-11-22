@@ -6,7 +6,7 @@ public class HomePage {
     private WebDriver driver;
     private String homePageURL = "https://www.tronalddump.io/";
     private By searchSubmit = By.xpath("//*[@id=\"content\"]/section[2]/form/input[2]");
-    private By searchBox = By.name("query");
+    private By searchBox = By.xpath("//*[@id=\"content\"]/section[2]/form/input[1]");
     private String lastSearchRequest;
 
     public HomePage(WebDriver driver){
@@ -20,6 +20,9 @@ public class HomePage {
         driver.findElement(searchBox).sendKeys(searchData);
         driver.findElement(searchSubmit).click();
         lastSearchRequest = searchData;
+    }
+    public String getLastSearchRequest(){
+        return lastSearchRequest;
     }
 
 }
