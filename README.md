@@ -10,8 +10,8 @@ that is listed on the front end.
 1. Clone the repository
 2. Run the tests within APITest.java
 
-##Author
+## Author
 Daniel Blake
 
-##Version 
+## Version 
 1.0.0
