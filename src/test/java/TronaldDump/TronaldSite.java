@@ -1,6 +1,7 @@
 package TronaldDump;
 import TronaldDump.Pages.HomePage;
 import TronaldDump.Pages.RandomMeme;
+import TronaldDump.Pages.RandomQuote;
 import TronaldDump.Pages.SearchPage;
 import org.openqa.selenium.WebDriver;
 public class TronaldSite {
@@ -10,11 +11,13 @@ public class TronaldSite {
         private HomePage homePage;
         private RandomMeme meme;
         private SearchPage searchPage;
+        private RandomQuote quote;
 
     public TronaldSite(WebDriver driver){
         this.driver = driver;
         homePage = new HomePage(driver);
         meme = new RandomMeme(driver);
+        quote = new RandomQuote(driver);
 
     }
 
@@ -29,6 +32,8 @@ public class TronaldSite {
     public void randomMeme(){
         meme.getRandomMeme();
     }
+    public void randomQuote(){quote.getRandomQuote();}
+    public String checkQuote(){return quote.getQuote();}
     public WebDriver getDriver(){
         return driver;
     }

@@ -44,7 +44,13 @@ public class ApiTest {
         String[] quotes = new String[5];
         for (int i = 0; i < searchArray.length; i++) {
             quotes[i] = site.firstSearchResult(searchArray[i]);
-            given().contentType("application/json").when().get(searchArray[i]).then().statusCode(200).body("$._embedded.quotes[0]", equalTo(quotes[i]));
+            given().header("accept"," application/hal+json").get(searchArray[i]).then().body("$._embedded.quotes[0]", equalTo(quotes[i]));
         }
+    }
+    @Test
+    public void testRandomQuote(){
+        site.randomQuote();
+        Assert.assertNotNull(site.checkQuote());
+        System.out.println(site.checkQuote());
     }
 }
