@@ -24,10 +24,6 @@ public class ApiTest {
 
     @Before
     public void setUp(){
-        baseURI = "https://api.tronalddump.io";
-        basePath = "/search/quote?query=";
-//        baseURI = "https://api.tronalddump.io";
-//        basePath = "/quote/";
         properties = new SeleniumDriverConfig("chrome");
         site = new TronaldSite(properties.getDriver());
         port = 443;
@@ -43,6 +39,8 @@ public class ApiTest {
 
     @Test
     public void testSearch(){
+        baseURI = "https://api.tronalddump.io";
+        basePath = "/search/quote?query=";
         String[] quotes = new String[5];
         for (int i = 0; i < searchArray.length; i++) {
             quotes[i] = site.firstSearchResult(searchArray[i]);
@@ -61,6 +59,8 @@ public class ApiTest {
     }
     @Test
     public void testQuoteSearchWithID(){
+        baseURI = "https://api.tronalddump.io";
+        basePath = "/quote/";
         String id = "Js5AQrOsQxmjLrq5F_Os2w";
         given()
                 .header("accept", "application/hal+json")
@@ -68,5 +68,24 @@ public class ApiTest {
                 .then()
                 .body("quote_id", equalTo(id));
 
+    }
+    @Test
+    public void testListOfTags(){
+        baseURI = "https://api.tronalddump.io";
+        basePath = "/tag";
+        given()
+                .header("accept", "application/hal+json")
+                .then().statusCode(412)
+                .body("count", equalTo(20));
+    }
+    @Test
+    public void testGetTag(){
+        String tag = "Money";
+        baseURI = "https://api.tronalddump.io";
+        basePath = "/tag/";
+        given()
+                .header("accept", "application/hal+json")
+                .get(tag).then().statusCode(200)
+                .body("_embedded.tags[0].tags[0]", equalTo(tag));
     }
 }
