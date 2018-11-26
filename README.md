@@ -1,4 +1,4 @@
-# API Testing on TronaldDump
+# API Testing on TronaldDump using RestAssured
 
 ## Project Aim
 To test the endpoints of the api and access at least one piece of data in order to check working condition
