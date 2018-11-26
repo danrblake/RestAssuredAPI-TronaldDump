@@ -26,6 +26,8 @@ public class ApiTest {
     public void setUp(){
         baseURI = "https://api.tronalddump.io";
         basePath = "/search/quote?query=";
+//        baseURI = "https://api.tronalddump.io";
+//        basePath = "/quote/";
         properties = new SeleniumDriverConfig("chrome");
         site = new TronaldSite(properties.getDriver());
         port = 443;
@@ -44,7 +46,11 @@ public class ApiTest {
         String[] quotes = new String[5];
         for (int i = 0; i < searchArray.length; i++) {
             quotes[i] = site.firstSearchResult(searchArray[i]);
-            given().header("accept"," application/hal+json").get(searchArray[i]).then().body("$._embedded.quotes[0]", equalTo(quotes[i]));
+            given()
+                    .header("accept"," application/hal+json")
+                    .get(searchArray[i])
+                    .then()
+                    .body("total", equalTo(quotes[i]));
         }
     }
     @Test
@@ -52,5 +58,15 @@ public class ApiTest {
         site.randomQuote();
         Assert.assertNotNull(site.checkQuote());
         System.out.println(site.checkQuote());
+    }
+    @Test
+    public void testQuoteSearchWithID(){
+        String id = "Js5AQrOsQxmjLrq5F_Os2w";
+        given()
+                .header("accept", "application/hal+json")
+                .get(id)
+                .then()
+                .body("quote_id", equalTo(id));
+
     }
 }
