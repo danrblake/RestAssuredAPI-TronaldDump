@@ -1,5 +1,7 @@
 # API Testing on TronaldDump using RestAssured
 
+## API Link
+https://www.tronalddump.io/
 ## Project Aim
 To test the endpoints of the api and access at least one piece of data in order to check working condition
 of the API. In addition to this, as the API has front end interactions I have incorporated the use of 
